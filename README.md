@@ -1,6 +1,6 @@
 # 2D-simulation-bipolar-RS-NCs
 
-<img src="AttachmentsREADME/kMC_SetProcess.avi" alt="k61-GIF" width="600"/>
+<img src="AttachmentsREADME/kMC_SetProcess.gif" alt="k61-GIF" width="600"/>
 
 <img src="AttachmentsREADME/k63.gif" alt="k61-GIF" width="600"/>
 

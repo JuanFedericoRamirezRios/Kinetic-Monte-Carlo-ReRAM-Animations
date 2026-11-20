@@ -2,10 +2,6 @@
 .env
 __pycache__
 node_modules
-configurations
-confsPng
-CalcsCpp.cpp
-outFile*
 build
 dist
 *.spec

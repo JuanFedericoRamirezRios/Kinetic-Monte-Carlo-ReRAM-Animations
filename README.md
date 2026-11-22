@@ -1,12 +1,10 @@
 # 2D-simulation-bipolar-RS-NCs
 
-<img src="AttachmentsREADME/kMC_SetProcess.gif" alt="k61-GIF" width="600"/>
+<img src="AttachmentsREADME/kMC_SetProcess.gif" alt="Set-GIF" width="600"/>
 
-<img src="AttachmentsREADME/k63.gif" alt="k61-GIF" width="600"/>
+<img src="AttachmentsREADME/kMC_ResetProcess.gif" alt="Reset-GIF" width="600"/>
 
-<video width="320" height="240" controls>
-  <source src="AttachmentsREADME/kMC_SetProcess.avi" type="video/avi">
-</video>
+<img src="AttachmentsREADME/With_without_NC.gif" alt="Reset-GIF" width="600"/>
 
 2D simulation of Resistive switching memory of oxides with conductive-nanocrystals embedded. The simulation emulates the DC voltage stimulus (voltage sweep). If you use this software, cite: https://doi.org/10.3390/nano13142124.
 

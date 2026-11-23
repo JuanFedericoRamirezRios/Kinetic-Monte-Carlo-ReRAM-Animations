@@ -1,96 +1,39 @@
-# 2D-simulation-bipolar-RS-NCs
+# Kinetic Monte Carlo Method for Simulating Deoxidation and Oxidation in Resistive RAMs with Embedded Conductive Nanocrystals
+
+If you use this information, please :), cite: https://doi.org/10.3390/nano13142124 or https://doi.org/10.3390/chips4010011.
+
+Typically, the oxides in the semiconductor industry are used as insulators or “gate oxides”. When a high electric field is applied to this material, it can produce a dielectric breakdown,  meaning the material becomes conductive. But, if this breakdown is reversible? This is the idea behind the neuromorphic computing through deoxidation-oxidation process.
+
+## Deoxidation Process
 
 <img src="AttachmentsREADME/kMC_SetProcess.gif" alt="Set-GIF" width="600"/>
 
+The deoxidation process in a thin film oxide can generate lattice conductive sites that form conductive filaments. One way to simulate this process is with the Kinetic Monte Carlo method (kMC), which is based on Harmonic Transition State Theory (hTST) and can calculate the probability of generating a conductive defect (https://doi.org/10.3390/chips4010011). 
+
+$$
+P_{ijk}^G=\frac{t}{t_0}\exp{\left(-\frac{E_{Oe} - q \gamma a F_{ij}^{nH}}{k T_r}\right)}
+$$
+
+These defects can be oxygen vacancies ($V_O$), which are represented in the animation as orange cubes. The oxygen ions (red balls), which have a negative charge, can escape their equilibrium sites due to the electric field ($F^{nH}$), which reduces the effective potential barrier. The right side of the animation shows the journey of an oxygen ion from generating an oxygen vacancy to reaching the top electrode.
+
+## Oxidation Process
+
 <img src="AttachmentsREADME/kMC_ResetProcess.gif" alt="Reset-GIF" width="600"/>
+
+The oxidation process in a thin film oxide can “erase” conductive sites that form conductive filaments. The kMC simulation can calculate the probability of recombination with conductive defects (https://doi.org/10.3390/chips4010011). 
+
+$$
+P_{ijk}^R=\frac{t}{t_0} \beta_R f_k \exp{\left(-\frac{|v| t}{L_O}\right)} \exp{\left(-\frac{E_{Oe}}{k T_J}\right)}
+$$
+
+The oxygen ions (red balls) can escape their equilibrium sites due to the electric field ($F^H$), which reduces the effective potential barrier near the top electrode and increase the velocity ($v$). The right side of the animation shows the journey of an oxygen ion from the top electrode to reaching the oxygen vacancy in the (4, j) site.
+
+## Effect of the Embedded Conductive Nanocrystals
 
 <img src="AttachmentsREADME/With_without_NC.gif" alt="Reset-GIF" width="600"/>
 
-2D simulation of Resistive switching memory of oxides with conductive-nanocrystals embedded. The simulation emulates the DC voltage stimulus (voltage sweep). If you use this software, cite: https://doi.org/10.3390/nano13142124.
+Experimental and simulation results of oxides such as titanium oxide, zinc oxide and tin oxide have demonstrated the resistive switching (RS) phenomenon, whereby the resistivity changes when different polarity of electrical field is applied. In the semiconductor industry, silicon oxide is the most common oxide, but this material does not exhibit RS due to the high electrical field required to achieve dielectric breakdown, which prevents the reversibility of this phenomenon. To overcome this problem, silicon nanocrystals (shown in blue in the simulation) embedded in the oxide can reduce the effective distance, and conductive defects (orange cubes) are less likely to cause the device to return to low current values.
 
-## The simulation model
-The simulation model is explained in [2D-simulation-model](https://doi.org/10.3390/nano13142124) and the electrical current calculation, equations (8) and (9) was modified to best adjust to experiment results by:
-
-$$
-J_{HRS}=K_{HRS}f_{HRS}\left[\left|F^H\right|\exp{\left(\frac{\beta\sqrt{\left|F^H\right|}-q\phi_t}{kT_r}\right)}\right] \text{\quad\quad(8)}
-$$
-
-$$
-J_{LRS}=K_{LRS}\frac{f_{LRS}}{N_S-N_{FS}}\left[\frac{\left(F^H\right)^2}{L}\exp{\left(\frac{0.891\beta\sqrt{\left|F^H\right|}-q\phi_t}{kT_J}\right)}\right] \text{\quad\quad(9)} 
-$$
-
-## Simulation conditions
-The simulation conditions can be specified in the initValues.txt before running **2D_RRAM_NCs_DCmode** or selected via the graphical user interface (GUI). A description of each feature is defined in [2D-simulation-model](https://doi.org/10.3390/nano13142124).
-
-## GUI
-The graphical user interface to change the values of simulation is:
-
-<img src="AttachmentsREADME/GUI.png" alt="GUI" width="800"/>
-
-### Where:
-#### 1st row of GUI:
-- $N_{LRS}$: Conductive state ($N_S$), *NOT CONDUCTIVITY*, at Low Resistive State (LRS).
-- $N_{HRS}$: $N_S$ at High Resistive State (HRS).
-- $N_{FS}$: $N_S$ at Fresh State (FS).
-- $V_{FORMING}$: Voltage needed for the FORMING.
-- $V_{RESET}$: Voltage that achieve the RESET.
-- $V_{SET}$: Voltage where the SET occurs.
-- $K_{HRS}$: Enhancement factor for HRS.
-- $K_{LRS}$: Enhancement factor for LRS.
-#### 2nd row of GUI:
-- $\gamma_{SET}$: Enhancement coefficient of generation probability during SET and FORMING.
-- $\gamma_{RESET}$: Enhancement coefficient of generation probability during RESET.
-- $\varphi_{drift}$: Enhancement coefficient for the drift of $O_{ion}$.
-- $I_{compliance}$ during the FORMING process.
-- $I_{compliance}$ during the RESET process.
-- $I_{compliance}$ during the SET process.
-- $a$: Mesh size.
-- $A$: Device area.
-#### 3rd row of GUI:
-- $V_{Oinit}$: Initial number of oxygen vacancies ($V_O$).
-- $t_{init}$: Time to generate or recombine $V_O$.
-- $E_{Oe}$: Migration barrier for oxygen ion ($O_{ion}$) from equilibrium.
-- $E_{Om}$: Migration barrier for $O_{ion}$ during their migration.
-- $L_O$: Decaying length of the $O_{ion}$ concentration.
-- $\beta_R$: Coefficient for the recombination.
-- $Rth$: Thermal resistance of (conductive filaments) CFs.
-- $a_0$: Attenuation length of the electron wave function.
-#### 4th row of GUI:
-- Number of sweep cycles ($0 V \to (V_{FORMING}\text{ or }V_{SET}) \to 0 V \to V_{RESET} \to 0 V$).
-- $\varepsilon$: Relative electrical permittivity.
-- $\phi_t$: Potential of the trap levels for charge conductivity.
-
-- Experiment: Name of OPTIONAL plain text file with the experimental $I-V$ results to compare with $I-V$ simulated. The format must be:
-
-&emsp;1st line: V (V)`tab`I (A)
-
-&emsp;2nd line: 1st voltage`tab`1st current
-
-&emsp;3rd line: 2nd voltage`tab`2nd current
-
-&emsp; &emsp; &emsp; &emsp; &emsp; ...
-
-- Structure: Name of plain text file with nanocrystals configuration. With:
-
-&emsp;0 → Not $V_O$.
-
-&emsp;1 → $V_O$.
-
-&emsp;2 → Fixed $V_O$, these are the nanocrystals.
-
-Examples in the files: [K-61-RT.txt](K-61-RT.txt) and [K-63-RT-shift.txt](K-63-RT-shift.txt).
-I recommend using the graphical editor of plain text online: https://asciiflow.com/
-- Out file: Name of out data simulation results (**WARNING**: If this exists, it will be replaced).
-- Seed: Seed of the random number generator. It is ranlux24 engine.
-- SIMULATE button: Simulate the cycles and show the simulation results of $N_S-V$ and $I-V$, if the *Experiment* file exists, it is include in the $I-V$ graph. It action creates the folder *configurations* (**WARNING**: If this exists, it will be replaced) with the plain text files of each $V_O$ configuration during the simulation. Additional, it generates the *Out file* with the results of simulation.
-- DRAW LAST SIMULATION button: By the $V_O$ configurations in *configurations* folder and *Out file* data, it generates .png images of simulation results in the folder *confsPng* (**WARNING**: If this exists, it will be replaced).
-
-By [GenerateGIF.exe](GenerateGIF.exe) you can create a .gif after "DRAW LAST SIMULATION" button. Usage of GenerateGIF.exe in my repository: https://github.com/JuanFedericoRamirezRios/Generator-GIF
-
-
-
-
-
-
-
-
+We explain this phenomenon in more detail in the papers https://ieeexplore.ieee.org/document/9908188 and https://doi.org/10.3390/chips4010011, and we present the experimental and 2D simulation in https://doi.org/10.3390/nano13142124.
+The 2D simulation program is available as a release in my GitHub repository.: https://github.com/JuanFedericoRamirezRios/2D-simulation-bipolar-RS-NCs 
+The python implementation of 3D simulation  is available in: https://github.com/JuanFedericoRamirezRios/3D-simulation-bipolar-RS-NCs 
